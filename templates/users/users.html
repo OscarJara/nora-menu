@@ -1,0 +1,25 @@
+<h1>Hola</h1>
+
+
+<div align="center">
+    <table border='1' cellpadding='2' cellspacing='2'>
+        <td>Nombre</td>
+        <td>Email</td>
+        <td>Eliminar</td>
+        <td>modificar</td>
+        {% for e in users %}
+        <tr>
+            <td>{{e.full_name}}</td>
+            <td>{{e.mail}}</td>
+            <td>
+                <a href="http://localhost:8000/delete-user/{{e.id}}">Borrar</a>
+            </td>
+            <td>
+                <a href="http://localhost:8000/update-user/{{e.id}}">Editar</a>
+            </td>
+        </tr>
+            
+        {% endfor %}
+    </table>
+</div>
+    
