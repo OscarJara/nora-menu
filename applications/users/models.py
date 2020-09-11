@@ -3,9 +3,20 @@ from model_utils.models import TimeStampedModel
 from applications.menu.models import Menu
 
 import datetime
+from django.core.exceptions import ValidationError
     
 class User(models.Model):
     
+    '''
+        Main model for the Users, fields are managed to later add menu selection.
+        
+        * full_name : Type CharField with max length of 100 characters, required field
+        * mail : Type EmailField, required field.
+        * password : Type Charfield with max length of 120, required field.
+        * profile : Type Charfield with max length of 1.
+                    The profiles are added inside a variable PROFILE_CHOISES, in a which a selection is generated
+        
+    '''
     PROFILE_CHOISES = (
         ('0','Administrador'),
         ('1','Trabajador'),
@@ -20,13 +31,14 @@ class User(models.Model):
     )
     
     class Meta:
+        # user is the name of the table in database
         db_table = 'user'
         verbose_name = 'user'
         verbose_name_plural = 'users'
         
     def __str__(self):
-        
-        return str(self.profile) + ' ' + self.full_name + ' ' + self.mail + ' ' + self.password
+        # return default full_name of the User
+        return self.full_name
     
 class UserMenu(models.Model):
     
