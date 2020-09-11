@@ -1,0 +1,9 @@
+<div align="center">
+    <fieldset>
+        <legend><h1>Modificar usuario</h1></legend>
+        <form  method="POST"> {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" placeholder="Agregar">Editar</button>
+        </form>
+    </fieldset>
+</div>
