@@ -3,29 +3,20 @@ from model_utils.models import TimeStampedModel
 from applications.menu.models import Menu
 
 import datetime
-
-class Profile(models.Model):
-        
-    name = models.CharField(max_length=50)
-    is_active = models.BooleanField(default=True)
     
-    class Meta:
-        db_table = 'profile'
-        verbose_name = 'profile'
-        verbose_name_plural = 'profiles'
+class User(models.Model):
     
-    def __str__(self):
-        
-        return self.name + ' : ' + str(self.is_active)
-
-class User(TimeStampedModel):
-    
-    full_name = models.CharField(max_length=100)
-    mail = models.EmailField()
-    password = models.CharField(max_length=100)
-    profile = models.ForeignKey(
-        Profile,
-        on_delete=models.CASCADE
+    PROFILE_CHOISES = (
+        ('0','Administrador'),
+        ('1','Trabajador'),
+    )    
+    full_name = models.CharField('Nombre Completo', max_length=100)
+    mail = models.EmailField('Email')
+    password = models.CharField('Contraseña', max_length=100)
+    profile = models.CharField(
+        'Perfil',
+        max_length=1,
+        choices=PROFILE_CHOISES
     )
     
     class Meta:
@@ -35,7 +26,7 @@ class User(TimeStampedModel):
         
     def __str__(self):
         
-        return self.full_name
+        return str(self.profile) + ' ' + self.full_name + ' ' + self.mail + ' ' + self.password
     
 class UserMenu(models.Model):
     
