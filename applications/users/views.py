@@ -12,14 +12,14 @@ from django.views.generic import (
 )
 
 from .models import User
-from .forms import CreateUser
+from .forms import BaseUserForm
 
 
 class CreateUserView(CreateView):
     
     template_name = 'users/add.html'
     model = User
-    form_class = CreateUser
+    form_class = BaseUserForm
     
     success_url = reverse_lazy('user_app:home')
     
@@ -39,5 +39,5 @@ class UserDeleteView(DeleteView):
 class UpdateUserView(UpdateView):
     template_name = "users/update.html"
     model = User
-    form_class = CreateUser
+    form_class = BaseUserForm
     success_url = reverse_lazy('user_app:home')
