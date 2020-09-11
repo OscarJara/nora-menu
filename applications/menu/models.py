@@ -32,4 +32,4 @@ class Menu(models.Model):
         verbose_name_plural = 'menus'
         
     def __str__(self):
-        return self.id + ' ' + self.date + ' ' + self.options
+        return str(self.id) + ' ' + self.date + ' ' + self.options
