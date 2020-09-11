@@ -5,6 +5,10 @@ from applications.users.forms import BaseUserForm
 class CreateUserFormTest(TestCase):
    
     def test_UserForm(self):
+        '''
+            In this test a correct form is generated,
+            the error response must be empty
+        '''
         form = BaseUserForm(
             data={
                 'full_name':'UserTestForm',
@@ -20,6 +24,10 @@ class CreateUserFormTest(TestCase):
         ) 
     
     def test_short_fullName(self):
+        '''
+            the full_name must come with an error,
+            since the BaseUserForm expects a longer name than 5 characters
+        '''
         form = BaseUserForm(
             data={
                 'full_name':'user',
@@ -34,6 +42,10 @@ class CreateUserFormTest(TestCase):
             'unexpected error response'
         )
     def test_short_password(self):
+        '''
+            the password must come with an error,
+            since the BaseUserForm expects a longer password than 8 characters
+        '''
         form = BaseUserForm(
             data={
                 'full_name':'UserTestForm',
@@ -49,6 +61,10 @@ class CreateUserFormTest(TestCase):
         )
     
     def test_password_withoutNumber(self):
+        '''
+            the password must come with an error,
+            since password is a required field
+        '''
         form = BaseUserForm(
             data={
                 'full_name':'UserTestForm',
@@ -64,6 +80,10 @@ class CreateUserFormTest(TestCase):
         )
     
     def test_mail_withoutFormat(self):
+        '''
+            The mail must come with an error,
+            since the format is validated from BaseUserForm through a regular expression
+        '''
         form = BaseUserForm(
             data={
                 'full_name':'UserTestForm',
