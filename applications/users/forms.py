@@ -15,8 +15,27 @@ class CreateUser(forms.ModelForm):
             'profile'
         )
         widgets = {
-            'password': forms.PasswordInput(),
-            'mail':forms.EmailInput(),
+            'full_name':forms.TextInput(
+                attrs={
+                    'placeholder':'Ingrese nombre completo'
+                }
+            ),
+            'password': forms.PasswordInput(
+                attrs={
+                    'placeholder':'Ingrese contraseña para el usuario'
+                }
+            ),
+            'mail':forms.EmailInput(
+                attrs={
+                    'placeholder':'Ingrese email del usuario'
+                }
+            ),
+            
+            'profile':forms.Select(
+                attrs={
+                    'placeholder':'Ingrese perfil'
+                }
+            )
         }
         
         
