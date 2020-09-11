@@ -1,0 +1,5 @@
+
+<form  method="POST"> {% csrf_token %}
+    <p>Confirme que desea eliminar al usuario {{User.full_name}} </p>
+    <button type="submit" placeholder="Eliminar">Eliminar</button>
+</form>
