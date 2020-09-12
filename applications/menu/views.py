@@ -33,7 +33,6 @@ from .forms import (
     BaseMenuForm
 )
 
-import json
 import time
 
 class CreateOptionsView(CreateView):
@@ -60,20 +59,14 @@ class ListMenuAPIView(ListAPIView):
    
 class SpecificMenuAPIView(ListAPIView):
     
-    print ('INSTANCIA POR PRIMERA VEZ SIN CONTEXT')
-    # serializer_class = SpecificMenuSerializer
     serializer_class = MenuSerializer
 
     def get_queryset(self):
         
-        print ('ENTRA AL QUERY SET')
         menu = self.request.GET.get('menu','')
-        print ('SE BUSCA MENU')
-        
         response = Menu.objects.filter(
             id=menu[:-1]
         )
-        print (' New Serializer')
         specific_menu = SpecificMenuSerializer(
             response,
             many=True,
@@ -81,7 +74,6 @@ class SpecificMenuAPIView(ListAPIView):
                 'user':menu[-1:]
             }
         ).data
-        print (specific_menu)
         return specific_menu
     
 class MainMenuView(TemplateView):
