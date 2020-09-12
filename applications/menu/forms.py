@@ -5,6 +5,7 @@ from .models import (
     Menu
 )
 
+import pytz
 import datetime
 
 class BaseOptionForm(forms.ModelForm):
@@ -42,7 +43,7 @@ class BaseMenuForm(forms.ModelForm):
         
         The fields are customized:
         
-            * date : type DateField, the restriction is, the date can be before today
+            * date : type DateInput, the restriction is, the date can be before today
             * options : type Select, it will list all available menu options
     '''
 
@@ -53,8 +54,12 @@ class BaseMenuForm(forms.ModelForm):
             'options',
         )
         widgets = {
-            'date':forms.DateInput(
-                format='%d-%m-%Y'
-            ),
             'options':forms.SelectMultiple()
         }
+        
+    def clean_date(self):
+        
+        if self.cleaned_data['date'] < datetime.date.today():
+            raise forms.ValidationError('La fecha ingresada para crear el menu no puede ser para una anterior a la de hoy')
+        
+        return self.cleaned_data['date']
