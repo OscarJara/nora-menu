@@ -23,6 +23,8 @@ from .forms import (
     BaseMenuForm
 )
 
+import time
+
 class CreateOptionsView(CreateView):
     
     template_name = 'menu/options/add.html'
@@ -53,3 +55,15 @@ class CreateMenuView(CreateView):
     form_class = BaseMenuForm
     
     success_url = reverse_lazy('menu_app:menus')
+    
+    def form_valid(self, form):
+        
+        menu = form.save(
+            commit=False
+        )
+        time.sleep(1)
+        #Integrations with celery, for created a reminder
+        menu.save()
+        
+        
+        return super(CreateMenuView,self).form_valid(form)
