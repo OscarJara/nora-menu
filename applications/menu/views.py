@@ -11,8 +11,18 @@ from django.views.generic import (
     UpdateView
 )
 
-from rest_framework.generics import ListAPIView
-from .serializers import MenuSerializer
+from rest_framework.generics import (
+    ListAPIView,
+    RetrieveAPIView
+)
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.renderers import JSONRenderer
+
+from .serializers import (
+    MenuSerializer,
+    SpecificMenuSerializer
+)
 
 from .models import (
     Menu,
@@ -23,6 +33,7 @@ from .forms import (
     BaseMenuForm
 )
 
+import json
 import time
 
 class CreateOptionsView(CreateView):
@@ -46,7 +57,51 @@ class ListMenuAPIView(ListAPIView):
     def get_queryset(self):
         
         return Menu.objects.all()
+   
+class SpecificMenuAPIView(ListAPIView):
     
+    print ('INSTANCIA POR PRIMERA VEZ SIN CONTEXT')
+    # serializer_class = SpecificMenuSerializer
+    serializer_class = MenuSerializer
+
+    def get_queryset(self):
+        
+        print ('ENTRA AL QUERY SET')
+        menu = self.request.GET.get('menu','')
+        print ('SE BUSCA MENU')
+        
+        response = Menu.objects.filter(
+            id=menu[:-1]
+        )
+        print (' New Serializer')
+        specific_menu = SpecificMenuSerializer(
+            response,
+            many=True,
+            context = {
+                'user':menu[-1:]
+            }
+        ).data
+        print (specific_menu)
+        return specific_menu
+    
+class MainMenuView(TemplateView):
+    template_name = 'menu/menus.html'
+    
+    
+class UpdateMenuView(UpdateView):
+    
+    template_name = 'menu/update.html'
+    model = Menu
+    form_class = BaseMenuForm
+    
+    success_url = reverse_lazy('menu_app:menus')
+    
+class DeleteMenuView(DeleteView):
+    
+    tempalte_name = 'menu/delete.html'
+    model = Menu    
+    
+    success_url = reverse_lazy('menu_app:menus')
     
 class CreateMenuView(CreateView):
     
@@ -67,3 +122,4 @@ class CreateMenuView(CreateView):
         
         
         return super(CreateMenuView,self).form_valid(form)
+    
