@@ -13,6 +13,7 @@ urlpatterns = [
     path('API/specific/',views.SpecificMenuAPIView.as_view(),name='api_specific'),
     path('menus/',views.MainMenuView.as_view(),name='menus'),
     path('delete-menu/<pk>',views.DeleteMenuView.as_view(),name='delete_menu'),
-    path('update-menu/<pk>',views.UpdateMenuView.as_view(),name='update_menu')
+    path('update-menu/<pk>',views.UpdateMenuView.as_view(),name='update_menu'),
+    path('select-menu/',views.SelectMenuView.as_view(),name='select')
     
 ]
