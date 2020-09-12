@@ -1,18 +1,47 @@
-<h1>Menus</h1> &nbsp; 
-
-<form method="get" action="/add-menu">
-    <button type="submit">Agregar Menu
-</form>
-
-<div align="center">
-    <table border='1' cellpadding='2' cellspacing='2'>
-        <!-- <td>Descripcion de plato</td> -->
-        {% for e in menus %}
-        <tr>
-            <td>{{e.options}}</td>
-        </tr>
-            
-        {% endfor %}
-    </table>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var table_content = '<table border="1"> <thead> <tr> <th>Fecha Menu</th> <th>Opciones</th> <th>Modifcar</th> <th>Eliminar</th> <tr>';
+        $.ajax(
+            {
+                url:'http://localhost:8000/API/menus',
+                success: function(result) {
+                    result.forEach(function(value,index,array){
+                        if(value.date != null){
+                            table_content += "<tr><td>"+value.date+'</td><td><ul>';
+                            value.options.forEach(function(option,index,array){
+                                table_content += '<li>'+option.description+'</li>';
+                            });
+                            table_content += '</ul></td>';
+                            table_content += '<td><a href="http://localhost:8000/update-menu/'+value.id+'">Editar</a> </td>';
+                            table_content += '<td><a href="http://localhost:8000/delete-menu/'+value.id+'">Eliminar</a> </td>';
+                            table_content += '</tr>'
+                        }
+                    }); 
+                    table_content += '</table>';
+                    $('#menu_table').append(table_content);
+                }
+            }
+        );
+    </script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Menus</title>
+    <div align='center'>
+        <h1 align='center'>Menus</h1>
+        <form method="get" action="/add-menu">
+            <button type="submit">Agregar Menu
+        </form>
+    </div>
     
+    <div align='center' id='menu_table'>
+
+    </div>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    
+</body>
+</html>
