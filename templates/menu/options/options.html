@@ -1,0 +1,18 @@
+<h1>Opciones</h1> &nbsp; 
+
+<form method="get" action="/add-options">
+    <button type="submit">Agregar opcion
+</form>
+
+<div align="center">
+    <table border='1' cellpadding='2' cellspacing='2'>
+        <td>Descripcion de plato</td>
+        {% for e in options %}
+        <tr>
+            <td>{{e.description}}</td>
+        </tr>
+            
+        {% endfor %}
+    </table>
+</div>
+    

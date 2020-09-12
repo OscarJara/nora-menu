@@ -1,0 +1,18 @@
+<h1>Menus</h1> &nbsp; 
+
+<form method="get" action="/add-menu">
+    <button type="submit">Agregar Menu
+</form>
+
+<div align="center">
+    <table border='1' cellpadding='2' cellspacing='2'>
+        <!-- <td>Descripcion de plato</td> -->
+        {% for e in menus %}
+        <tr>
+            <td>{{e.options}}</td>
+        </tr>
+            
+        {% endfor %}
+    </table>
+</div>
+    
