@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="application/javascript">
+        //var url = new URLSearchParams(window.location.search);
+        //var myparam = url.get('myparam');
+        //console.log(myparam.has('m'));
+        var date;
+        var menu;
+        var user;
+        $(document).ready(function(){
+            $.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                if (results==null) {
+                   return null;
+                }
+                return decodeURI(results[1]) || 0;
+            }
+            var menu_id = $.urlParam('m');
+            var baseUrl = 'http://localhost:8000/API/specific?menu='+menu_id;
+
+            $.ajax(
+                {
+                    url:baseUrl,
+                    success:function(response){
+                        console.log('REQUEST');
+                        date = response[0].date
+                        menu = response[0].id
+                        user = response[0].user_id
+                        document.getElementById('menuDate').innerHTML = response[0].date;
+                        $.each(response[0].options, function(key,value){
+                            $("#options").append('<option value='+value.id+'>'+value.description+'</option>');
+                        });
+                    }
+                }
+        
+            );
+        });
+     
+        function save_selected(){
+            var options = document.getElementById("options").value;
+            var observation = document.getElementById("observation").value;
+
+            payload = {
+                'user':user,
+                'menu':menu,
+                'option':parseInt(options),
+                'observation':observation
+            }
+            console.log(payload);
+        }
+    
+    </script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Seleccion Menu</title>
+    <div align='center'>
+        <h1 align='center'>Seleccione Menu Para el dia: <label id="menuDate">dia</label> </h1>
+        <body>
+            <!-- <form> -->
+
+                <select id="options">
+                    <option>Seleccione una opcion...</option>
+                </select>
+                <br>
+                <textarea id="observation" placeholder="Ingrese alguna observacion"></textarea>
+                <button type="submit" onClick="save_selected()">Seleccionar Menu
+            <!-- </form> -->
+            
+        </body>
+        
+    </div>
+    
+    <div align='center' id='menu_table'>
+
+    </div>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    
+</body>
+</html>
