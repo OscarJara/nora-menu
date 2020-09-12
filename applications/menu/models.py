@@ -23,7 +23,7 @@ class Menu(models.Model):
         default = uuid.uuid4, 
         editable = False
     )     
-    date = models.DateField()
+    date = models.DateField('Fecha del menu')
     options = models.ManyToManyField(Option)
 
     class Meta:
@@ -32,4 +32,4 @@ class Menu(models.Model):
         verbose_name_plural = 'menus'
         
     def __str__(self):
-        return str(self.id) + ' ' + str(self.date) + ' ' + str(self.options)
+        return str(self.id) + ' ' + str(self.date) 
