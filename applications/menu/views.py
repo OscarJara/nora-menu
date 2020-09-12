@@ -77,8 +77,12 @@ class SpecificMenuAPIView(ListAPIView):
         return specific_menu
     
 class MainMenuView(TemplateView):
+    
     template_name = 'menu/menus.html'
     
+class SelectMenuView(TemplateView):
+    
+    template_name = 'menu/select_menu.html'
     
 class UpdateMenuView(UpdateView):
     
