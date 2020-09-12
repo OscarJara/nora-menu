@@ -14,10 +14,34 @@ class OptionSerializer(serializers.ModelSerializer):
 class MenuSerializer(serializers.ModelSerializer):
         
     options = OptionSerializer(many=True)
+    user_id = serializers.IntegerField(required=False)
+    class Meta:
+        model = Menu
+        fields = (
+            'id',
+            'date',
+            'options',
+            'user_id',
+        )
+        
+
+class SpecificMenuSerializer(serializers.ModelSerializer):
+        
+    options = OptionSerializer(many=True)
+    user_id = serializers.SerializerMethodField('get_user_id')
     
     class Meta:
         model = Menu
         fields = (
+            'id',
             'date',
-            'options'
+            'options',
+            'user_id'
         )
+        
+    def get_user_id(self,obj):
+        
+        print (obj)
+        user_id = self.context.get('user')
+        if user_id:
+            return user_id
