@@ -48,3 +48,22 @@ class UpdateUserView(UpdateView):
     model = User
     form_class = BaseUserForm
     success_url = reverse_lazy('user_app:home')
+    
+class CreateUserMenuAPIView(CreateAPIView):
+            
+    serializer_class = UserMenuSerializer
+    
+    def create(self, request, *args, **kwargs):
+    
+        serializer = self.get_serializer(data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            response = {}
+            response['success'] = True
+            response['message'] = "Registro guardado exitosamente"
+            response['status'] = status.HTTP_201_CREATED
+            
+            return Response(response,status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.data, status=status.HTTP_201_CREATED) 
