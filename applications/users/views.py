@@ -14,6 +14,13 @@ from django.views.generic import (
 from .models import User
 from .forms import BaseUserForm
 
+from rest_framework.generics import (
+    CreateAPIView
+)
+
+from .serializers import UserMenuSerializer
+from rest_framework.response import Response
+from rest_framework import status
 
 class CreateUserView(CreateView):
     
