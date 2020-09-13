@@ -10,7 +10,9 @@ from applications.menu.serializers import OptionSerializer
 
 
 class UserAuth(serializers.ModelSerializer):
-    
+    '''
+        serializer to simulate a login from an email, it will return specific data which defines if all the menus will be listed or only the worker's
+    '''
     class Meta:
         model = User
         fields = (
@@ -20,6 +22,9 @@ class UserAuth(serializers.ModelSerializer):
         )
         
 class UserSerializer(serializers.ModelSerializer):
+    '''
+        base serializer of a user, where it will return all the fields
+    '''
     class Meta:
         model = User
         fields = ('__all__')
