@@ -6,7 +6,9 @@ from .models import (
 )
 
 class OptionSerializer(serializers.ModelSerializer):
-    
+    '''
+        Base serializer of the option model.
+    '''
     class Meta:
         model = Option
         fields = ('__all__')
@@ -41,7 +43,6 @@ class SpecificMenuSerializer(serializers.ModelSerializer):
         
     def get_user_id(self,obj):
         
-        print (obj)
         user_id = self.context.get('user')
         if user_id:
             return user_id
