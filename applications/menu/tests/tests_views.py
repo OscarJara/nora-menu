@@ -15,14 +15,9 @@ import datetime
 
 '''
 
-    3. create menu whitout options
-    5. create menu with date past
-    6. create menu with another user other than the administrator profile
     7. list all menus with a profile other than administrator
     8. list all menus with administrator profile
-    9. delete menu with selections
-    
-    
+        
     12. add menu to celery for to send reminder notifications
     12. test slack notifications
 '''
@@ -41,7 +36,7 @@ class MenuViewTest(TestCase):
         menu.save()
                 
         self.menu_id = menu.id
-    
+        
     def test_menu(self):
         '''
             View menu rendering
@@ -83,6 +78,18 @@ class MenuViewTest(TestCase):
         response = self.client.post('/add-menu/',payload_test)
         self.assertEqual(response.status_code,302,'the returned code is not what we expected')
 
+    def test_create_menu_date_past(self):
+        '''
+            request post to add-menu, create a new menu with date past.
+        '''
+        previous_date = datetime.date.today() - datetime.timedelta(days=1)
+        payload_test = {
+            'date':previous_date,
+            'option':self.option_id
+        }
+        response = self.client.post('/add-menu/',payload_test)
+        self.assertEqual(response.status_code,200,'the returned code is not what we expected')
+        
     def test_update_menu(self):
         '''
             request post to update-menu, modify a menu created in SetUp, no errors are expected
