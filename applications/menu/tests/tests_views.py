@@ -72,6 +72,17 @@ class MenuViewTest(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code,status.HTTP_301_MOVED_PERMANENTLY,'the returned code is not what we expected')
         
+    def test_create_menu(self):
+        '''
+            post request to add-menu, create a new menu.
+        '''
+        payload_test = {
+            'date':datetime.date.today(),
+            'option':self.option_id
+        }
+        response = self.client.post('/add-menu/',payload_test)
+        self.assertEqual(response.status_code,200,'the returned code is not what we expected')
+
 class OptionViewTest(TestCase):
     
     def setUp(self):
