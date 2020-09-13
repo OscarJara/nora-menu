@@ -13,5 +13,5 @@ urlpatterns = [
     path('API/user-menu/',views.ListUserMenuAPIView.as_view(),name='user_menu'),
     # path('menus-selected',views.SelectMenuListView.as_view(),name='menus_selected'),
     path('home/',views.HomeView.as_view(),name='menus_selected'),
-    path('API/auth',views.AuthUserAPIView.as_view(),name='auth'),
+    path('API/auth/',views.AuthUserAPIView.as_view(),name='auth'),
 ]
