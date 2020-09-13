@@ -74,6 +74,10 @@ class CreateUserMenuAPIView(CreateAPIView):
         
         return Response(serializer.data, status=status.HTTP_201_CREATED) 
     
+class SelectMenuListView(TemplateView):
+    
+    template_name = 'users/menus_seleced.html'
+    
 class ListUserMenuAPIView(ListAPIView):
     
     serializer_class = UserMenuSerializer
