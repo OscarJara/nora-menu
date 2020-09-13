@@ -9,6 +9,15 @@ from applications.menu.models import Option
 from applications.menu.serializers import OptionSerializer
 
 
+class UserAuth(serializers.ModelSerializer):
+    
+    class Meta:
+        model = User
+        fields = (
+            'username', 
+            'password'
+        )
+        
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
