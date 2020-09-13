@@ -36,7 +36,14 @@ class MenuViewTest(TestCase):
         menu.save()
                 
         self.menu_id = menu.id
-        
+     
+    def test_list_userMenu_administrator(self):
+        '''
+            User menus are listed with user id that is administrator
+        '''
+        response = self.client.get('/API/menus?user=1')
+        self.assertEqual(response.status_code,status.HTTP_301_MOVED_PERMANENTLY,'the returned code is not what we expected')
+           
     def test_menu(self):
         '''
             View menu rendering
