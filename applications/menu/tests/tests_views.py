@@ -44,6 +44,13 @@ class MenuViewTest(TestCase):
         response = self.client.get('/API/menus?user=1')
         self.assertEqual(response.status_code,status.HTTP_301_MOVED_PERMANENTLY,'the returned code is not what we expected')
            
+    def test_list_userMenu_without_administrator(self):
+        '''
+            The menus of users with user id that is not administrator are listed
+        '''
+        response = self.client.get('/API/menus?user=2')
+        self.assertEqual(response.status_code,status.HTTP_301_MOVED_PERMANENTLY,'the returned code is not what we expected')
+        
     def test_menu(self):
         '''
             View menu rendering
