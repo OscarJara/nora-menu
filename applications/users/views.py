@@ -74,7 +74,7 @@ class CreateUserMenuAPIView(CreateAPIView):
         
         return Response(serializer.data, status=status.HTTP_201_CREATED) 
     
-class SelectMenuListView(TemplateView):
+class HomeView(TemplateView):
     
     template_name = 'users/login.html'
     
