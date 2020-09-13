@@ -81,7 +81,7 @@ class MenuViewTest(TestCase):
             'option':self.option_id
         }
         response = self.client.post('/add-menu/',payload_test)
-        self.assertEqual(response.status_code,200,'the returned code is not what we expected')
+        self.assertEqual(response.status_code,302,'the returned code is not what we expected')
 
     def test_update_menu(self):
         '''
@@ -94,7 +94,15 @@ class MenuViewTest(TestCase):
         }
         url = '/update-menu/%s' % (str(self.menu_id))
         response = self.client.post(url,payload_test)
-        self.assertEqual(response.status_code,200,'the returned code is not what we expected')
+        self.assertEqual(response.status_code,302,'the returned code is not what we expected')
+        
+    def test_delete_menu(self):
+        '''
+            request post to delete-menu, delete a menu created in SetUp, no errors are expected.
+        '''
+        url = '/delete-menu/%s' % (str(self.menu_id))
+        response = self.client.post(url)
+        self.assertEqual(response.status_code,302,'the returned code is not what we expected')
         
 class OptionViewTest(TestCase):
     
