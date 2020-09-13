@@ -56,6 +56,22 @@ class MenuViewTest(TestCase):
         response = self.client.get('/API/menus')
         self.assertEqual(response.status_code,status.HTTP_301_MOVED_PERMANENTLY,'the returned code is not what we expected')
 
+    def test_api_specific_menu_wrong_url(self):
+        '''
+            A request is made looking for a specific menu, but with the wrong url, a 404 code is expected since the url does not exist
+        '''
+        url = '/API/specific_menu?menu=%s' % (self.menu_id)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND,'the returned code is not what we expected')
+    
+    def test_api_specific_menu(self):
+        '''
+            request is made looking for a specific menu with the correct url
+        '''
+        url = '/API/specific?menu=%s' % (self.menu_id)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code,status.HTTP_301_MOVED_PERMANENTLY,'the returned code is not what we expected')
+        
 class OptionViewTest(TestCase):
     
     def setUp(self):
