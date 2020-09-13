@@ -35,8 +35,13 @@ from .forms import (
 
 import time
 
-class CreateOptionsView(CreateView):
-    
+class CreateOptionsView(CreateView): 
+    '''
+        View to create options that will be used when creating the menu.
+
+        This view uses a base form class for options and renders an html located in templates/menu/options.
+
+    '''
     template_name = 'menu/options/add.html'
     model = Option
     form_class = BaseOptionForm
