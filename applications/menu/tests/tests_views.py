@@ -74,7 +74,7 @@ class MenuViewTest(TestCase):
         
     def test_create_menu(self):
         '''
-            post request to add-menu, create a new menu.
+            request post to add-menu, create a new menu.
         '''
         payload_test = {
             'date':datetime.date.today(),
@@ -83,6 +83,19 @@ class MenuViewTest(TestCase):
         response = self.client.post('/add-menu/',payload_test)
         self.assertEqual(response.status_code,200,'the returned code is not what we expected')
 
+    def test_update_menu(self):
+        '''
+            request post to update-menu, modify a menu created in SetUp, no errors are expected
+        '''
+        payload_test = {
+            'id':str(self.menu_id),
+            'date':datetime.date.today(),
+            'option':self.option_id
+        }
+        url = '/update-menu/%s' % (str(self.menu_id))
+        response = self.client.post(url,payload_test)
+        self.assertEqual(response.status_code,200,'the returned code is not what we expected')
+        
 class OptionViewTest(TestCase):
     
     def setUp(self):
