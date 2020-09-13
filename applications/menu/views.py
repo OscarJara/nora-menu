@@ -74,6 +74,16 @@ class ListMenuAPIView(ListAPIView):
    
 class SpecificMenuAPIView(ListAPIView):
     
+    '''
+        The class will use a main serializer to return a menu.
+        
+        Through url, a parameter will be received with the id of the menu to search along with a user id in the last field of the chain.
+        
+        The searched menu will go through a second serializer where the menu options and a user id will be added which is passed as a parameter through the context
+        La clase utilizara un serializador principal para retornar un menu.
+    '''
+    
+    # MenuSerializer it's a base serializer of menu
     serializer_class = MenuSerializer
 
     def get_queryset(self):
@@ -82,6 +92,7 @@ class SpecificMenuAPIView(ListAPIView):
         response = Menu.objects.filter(
             id=menu[:-1]
         )
+        # SpecificMenuSerializer is a new serializer where options like text and user id are added
         specific_menu = SpecificMenuSerializer(
             response,
             many=True,
