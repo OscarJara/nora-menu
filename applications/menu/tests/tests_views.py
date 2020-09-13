@@ -83,3 +83,10 @@ class MenuViewTest(TestCase):
         '''
         response = self.client.get('/options/')
         self.assertEqual(response.status_code,200,'the returned code is not what we expected')
+        
+    def test_menu(self):
+        '''
+            View menu rendering
+        '''
+        response = self.client.get('/menus/')
+        self.assertEqual(response.status_code,200,'the returned code is not what we expected')
