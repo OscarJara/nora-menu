@@ -41,15 +41,25 @@
         function save_selected(){
             var options = document.getElementById("options").value;
             var observation = document.getElementById("observation").value;
-
+            var urlADD = 'http://localhost:8000/API/add-select/'
             payload = {
                 'user':user,
                 'menu':menu,
                 'option':parseInt(options),
                 'observation':observation
             }
+            $.ajax({
+                url:urlADD,
+                type: 'POST',
+                data: JSON.stringify(payload),
+                dataType: 'json',
+                success:function(response){
+                    alert('Menu agregado con exito');
+                }
+            });
+             
             console.log(payload);
-        }
+        };
     
     </script>
     <meta charset='utf-8'>
