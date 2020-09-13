@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="application/javascript">
+        
+        $(document).ready(function(){
+            $.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                if (results==null) {
+                   return null;
+                }
+                return decodeURI(results[1]) || 0;
+            }
+            var user_id = $.urlParam('u');
+            var baseUrl = 'http://localhost:8000/API/user-menu/?user='+user_id;
+            var table_content = '<table border="1"> <thead> <tr> <th>Fechau</th> <th>Nombre</th> <th>Mail</th> <th>Seleccion</th><th>Observacion</th <tr>';
+            $.ajax(
+                {
+                    url:baseUrl,
+                    success:function(response){
+                        console.log('REQUEST');
+                        console.log(response);
+                        response.forEach(function(value,index,array){
+                            table_content += '<tr><td>'+value.date+'</td>';
+                            table_content += '<td>'+value.user.full_name+'</td>';
+                            table_content += '<td>'+value.user.mail+'</td>';
+                            table_content += '<td>'+value.option_select+'</td>';
+                            table_content += '<td>'+value.observation+'</td></tr>';
+                        });
+                        table_content += '</table>';
+                        $('#menu_table').append(table_content);
+                    }
+                }
+        
+            );
+        });
+     
+
+    </script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Menus seleccionados</title>
+    <div align='center' id='title'>
+        <h1> Selecciones de menu</h1>  
+    </div>
+    <div align='center' id='menu_table'>
+
+    </div>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    
+</body>
+</html>
