@@ -4,6 +4,7 @@ from django.test import TestCase
 
 from applications.menu.views import *
 from rest_framework.reverse import reverse
+from rest_framework import status
 
 from applications.menu.models import (
     Menu,
@@ -48,6 +49,12 @@ class MenuViewTest(TestCase):
         response = self.client.get('/menus/')
         self.assertEqual(response.status_code,200,'the returned code is not what we expected')
 
+    def test_api_list_menu(self):
+        '''
+            test by making a request to the listing api for menus, a 301 code is expected
+        '''
+        response = self.client.get('/API/menus')
+        self.assertEqual(response.status_code,status.HTTP_301_MOVED_PERMANENTLY,'the returned code is not what we expected')
 
 class OptionViewTest(TestCase):
     
