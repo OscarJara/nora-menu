@@ -40,6 +40,29 @@ class MenuViewTest(TestCase):
         menu.save()
                 
         self.menu_id = menu.id
+    
+    def test_menu(self):
+        '''
+            View menu rendering
+        '''
+        response = self.client.get('/menus/')
+        self.assertEqual(response.status_code,200,'the returned code is not what we expected')
+
+
+class OptionViewTest(TestCase):
+    
+    def setUp(self):
+        
+        option = Option()
+        option.description = 'Pure de zapallo con escalopa'
+        option.save()
+        self.option_id = option.id
+        
+        menu = Menu()
+        menu.date = datetime.date.today()
+        menu.save()
+                
+        self.menu_id = menu.id
 
     def test_create_option(self):
         
@@ -82,11 +105,4 @@ class MenuViewTest(TestCase):
             view listing and rendering is tested
         '''
         response = self.client.get('/options/')
-        self.assertEqual(response.status_code,200,'the returned code is not what we expected')
-        
-    def test_menu(self):
-        '''
-            View menu rendering
-        '''
-        response = self.client.get('/menus/')
         self.assertEqual(response.status_code,200,'the returned code is not what we expected')
