@@ -23,7 +23,8 @@ from rest_framework.generics import (
 )
 
 from .serializers import (
-    UserMenuSerializer
+    UserMenuSerializer,
+    UserAuth
 )
 
 from rest_framework.response import Response
@@ -80,7 +81,18 @@ class CreateUserMenuAPIView(CreateAPIView):
 class HomeView(TemplateView):
     
     template_name = 'menu/login.html'
-      
+ 
+class AuthUserAPIView(ListAPIView):
+    
+    serializer_class = UserAuth
+          
+    def get_queryset(self):
+        
+        mail = self.request.GET.get('mail','')
+        return User.objects.filter(
+            mail=mail
+        )
+     
 class ListUserMenuAPIView(ListAPIView):
     
     serializer_class = UserMenuSerializer
