@@ -22,7 +22,10 @@ from rest_framework.generics import (
     ListAPIView
 )
 
-from .serializers import UserMenuSerializer
+from .serializers import (
+    UserMenuSerializer
+)
+
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -76,8 +79,8 @@ class CreateUserMenuAPIView(CreateAPIView):
     
 class HomeView(TemplateView):
     
-    template_name = 'users/login.html'
-    
+    template_name = 'menu/login.html'
+      
 class ListUserMenuAPIView(ListAPIView):
     
     serializer_class = UserMenuSerializer
