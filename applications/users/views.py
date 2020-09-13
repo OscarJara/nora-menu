@@ -11,16 +11,22 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .models import User
+from .models import (
+    User,
+    UserMenu
+)
 from .forms import BaseUserForm
 
 from rest_framework.generics import (
-    CreateAPIView
+    CreateAPIView,
+    ListAPIView
 )
 
 from .serializers import UserMenuSerializer
 from rest_framework.response import Response
 from rest_framework import status
+
+import re
 
 class CreateUserView(CreateView):
     
@@ -67,3 +73,20 @@ class CreateUserMenuAPIView(CreateAPIView):
             return Response(response,status=status.HTTP_201_CREATED)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED) 
+    
+class ListUserMenuAPIView(ListAPIView):
+    
+    serializer_class = UserMenuSerializer
+    
+    def get_queryset(self):
+        
+        user = self.request.GET.get('user','')
+        if not user or re.match(r'[0,9]',user):
+            return []
+        
+        userModel = User.objects.filter(id=user).values('profile')
+        userProfile = userModel[0]['profile']
+        if userProfile == '0':
+            return UserMenu.objects.all()
+        else:
+            return UserMenu.objects.filter(user=user)
