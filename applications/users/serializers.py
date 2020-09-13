@@ -31,6 +31,9 @@ class UserSerializer(serializers.ModelSerializer):
         
 class UserMenuSerializer(serializers.ModelSerializer):
     
+    '''
+        this serializer will return a menu with the option in text and the creation date.
+    '''
     user = UserSerializer()
     option_select = serializers.SerializerMethodField()
     class Meta:
@@ -47,6 +50,9 @@ class UserMenuSerializer(serializers.ModelSerializer):
         
     def get_option_select(self,obj):
         
+        '''
+            This method will filter the options in string according to the id of the object, it will return the description and store it in a new field to return it in the api
+        '''
         option = Option.objects.filter(id=obj.option).values('description')
         option = option[0]['description']
         return option
