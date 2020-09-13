@@ -5,13 +5,6 @@ from applications.users.models import User
 
 # Create your tests here.
 
-'''
-    7. list users with a profile other than administrator
-    8. with user select valid menu
-    9. with user select invalid menu
-    10. with user select 2 menus in the same date
-'''
-
 class UserViewTest(TestCase):
     
     def setUp(self):
