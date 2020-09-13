@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="application/javascript">
+  
+     
+        function login(){
+            var username = document.getElementById("username").value;
+            var urlAuth = 'http://localhost:8000/API/auth/?mail='+username;
+            $.ajax({
+                url:urlAuth,
+                success:function(response){
+                    var user = response[0].id;
+                    url = 'http://localhost:8000/menus-selected/?u='+user;
+                    window.location.replace(url);
+                }
+            });
+             
+        };
+    
+    </script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Menu</title>
+    <div align='center'>
+        <h1 align='center'>Login </h1>
+        <body>
+
+                <input type='text' id='username' placeholder='Ingrese usuario'>
+                <br>
+                <button type="submit" onClick="login()">Autenticar
+            
+        </body>
+        
+    </div>
+    
+    <div align='center' id='menu_table'>
+
+    </div>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    
+</body>
+</html>
