@@ -49,7 +49,15 @@ class CreateOptionsView(CreateView):
     success_url = reverse_lazy('menu_app:options')
     
 class ListOptionsView(ListView):
-    
+    '''
+        all options are listed.
+        
+        template that renders: options.html
+        model : Option
+        
+        the data is added in the options variable
+
+    '''
     template_name = 'menu/options/options.html'
     model = Option
     context_object_name = 'options'
@@ -82,7 +90,9 @@ class SpecificMenuAPIView(ListAPIView):
         return specific_menu
     
 class MainMenuView(TemplateView):
-    
+    '''
+        this view renders the main menu
+    '''
     template_name = 'menu/menus.html'
     
 class SelectMenuView(TemplateView):
