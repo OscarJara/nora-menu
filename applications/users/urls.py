@@ -8,5 +8,6 @@ urlpatterns = [
     path('add-user/', views.CreateUserView.as_view(),name='add'),
     path('home-user/', views.ListUserView.as_view(),name='home'),
     path('delete-user/<pk>', views.UserDeleteView.as_view(),name='delete'),
-    path('update-user/<pk>', views.UpdateUserView.as_view(),name='update')
+    path('update-user/<pk>', views.UpdateUserView.as_view(),name='update'),
+    path('API/add-select/',views.CreateUserMenuAPIView.as_view(),name='user_name')
 ]
