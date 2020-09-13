@@ -59,6 +59,9 @@ class BaseMenuForm(forms.ModelForm):
         
     def clean_date(self):
         
+        '''
+            clean_date verifies that the date to create a menu is not less than the current date, so as not to create menus that cannot be selected.
+        '''
         if self.cleaned_data['date'] < datetime.date.today():
             raise forms.ValidationError('La fecha ingresada para crear el menu no puede ser para una anterior a la de hoy')
         
