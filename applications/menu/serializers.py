@@ -32,7 +32,11 @@ class MenuSerializer(serializers.ModelSerializer):
         
 
 class SpecificMenuSerializer(serializers.ModelSerializer):
-        
+    '''
+        Serializer where the user id is added to the response, this id is added through a field method.
+
+        Use the option serializer to generate the relation.
+    '''
     options = OptionSerializer(many=True)
     user_id = serializers.SerializerMethodField('get_user_id')
     
@@ -46,7 +50,9 @@ class SpecificMenuSerializer(serializers.ModelSerializer):
         )
         
     def get_user_id(self,obj):
-        
+        '''
+            receives a user through the serializer context, it is validated that it does not come empty and the user is returned.
+        '''
         user_id = self.context.get('user')
         if user_id:
             return user_id
