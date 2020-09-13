@@ -42,6 +42,16 @@ class User(models.Model):
     
 class UserMenu(models.Model):
     
+    '''
+        Main model for the UserMenus.
+        
+        * user : Type ForeignKey relation with User model, required field
+        * menu : Type ForeignKey relation with Menu model, required field.
+        * observation : Type Charfield with max length of 200, required field. (observation regarding the selected menu, for example: 'La ensalada sin tomate')
+        * option : Type IntegerField, required field. (is the id of the menu option that the user chose)
+        * date: Type DateField is not required, default value is now.        
+    '''
+    
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE
