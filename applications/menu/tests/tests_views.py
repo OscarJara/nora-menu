@@ -14,10 +14,6 @@ from applications.menu.models import (
 import datetime
 
 '''
-
-    7. list all menus with a profile other than administrator
-    8. list all menus with administrator profile
-        
     12. add menu to celery for to send reminder notifications
     12. test slack notifications
 '''
