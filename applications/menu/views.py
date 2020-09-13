@@ -97,6 +97,9 @@ class MainMenuView(TemplateView):
     
 class SelectMenuView(TemplateView):
     
+    '''
+        this view shows the menu selection
+    '''
     template_name = 'menu/select_menu.html'
     
 class UpdateMenuView(UpdateView):
