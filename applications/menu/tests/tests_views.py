@@ -76,3 +76,10 @@ class MenuViewTest(TestCase):
         }
         response = self.client.post('/add-options/',payload_test)
         self.assertEqual(response.status_code,200,'the returned code is not what we expected')
+        
+    def test_list_options(self):
+        '''
+            view listing and rendering is tested
+        '''
+        response = self.client.get('/options/')
+        self.assertEqual(response.status_code,200,'the returned code is not what we expected')
