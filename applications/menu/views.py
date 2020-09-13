@@ -63,7 +63,9 @@ class ListOptionsView(ListView):
     context_object_name = 'options'
     
 class ListMenuAPIView(ListAPIView):
-
+    '''
+        the class will return all the available menus, without modification to the fields
+    '''
     serializer_class = MenuSerializer
     
     def get_queryset(self):
