@@ -14,7 +14,11 @@ class OptionSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         
 class MenuSerializer(serializers.ModelSerializer):
+    '''
+        base serializer for the menus, a field is added that is not required, but will be used by another serializer for menu selection.
         
+        Use the option serializer to generate the relation.
+    '''  
     options = OptionSerializer(many=True)
     user_id = serializers.IntegerField(required=False)
     class Meta:
