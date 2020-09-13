@@ -37,6 +37,7 @@ class UserMenuSerializer(serializers.ModelSerializer):
             'option',
             'observation',
             'option_select',
+            'date',
         )
         
     def get_option_select(self,obj):
