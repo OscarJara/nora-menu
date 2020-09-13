@@ -80,8 +80,12 @@ class CreateUserMenuAPIView(CreateAPIView):
     
 class HomeView(TemplateView):
     
-    template_name = 'menu/login.html'
+    template_name = 'users/login.html'
  
+class SelectedMenuListView(TemplateView):
+     
+    template_name = 'users/selected_menu.html'
+    
 class AuthUserAPIView(ListAPIView):
     
     serializer_class = UserAuth
