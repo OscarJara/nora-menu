@@ -76,7 +76,7 @@ class CreateUserMenuAPIView(CreateAPIView):
     
 class SelectMenuListView(TemplateView):
     
-    template_name = 'users/menus_seleced.html'
+    template_name = 'users/login.html'
     
 class ListUserMenuAPIView(ListAPIView):
     
