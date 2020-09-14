@@ -2,21 +2,7 @@ from django.test import TestCase
 
 from .slack import Slack
 class SlackTest(TestCase):
-    
-    # {
-    #     "ok":true,
-    #     "channel":"C01AZ56NAKB",
-    #     "ts":"1600053020.000800",
-    #     "message":{
-    #         "type":"message",
-    #         "subtype":"bot_message",
-    #         "text":"message of test",
-    #         "ts":"1600053020.000800",
-    #         "username":"bot",
-    #         "bot_id":"B01AZ58NWC9"
-    #     }
-    # }
-    
+
     def setUp(self):
         self.slack = Slack()
         
