@@ -73,7 +73,7 @@ class SlackTest(TestCase):
             'unexpected error message'
         )
 
-    def test_create_message_Channel_empty(self):
+    def test_create_message_Channel_wrong(self):
         
         input_message = 'message of test'
         code,response = self.slack.message(
