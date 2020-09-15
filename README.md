@@ -1,56 +1,72 @@
-# Cornershop's Backend Test 
+# Nora's menu
 
-This technical test requires the design and implementation (using Django) of a basic management system to coordinate the meal delivery for Cornershop employees.
+This repository contains the source code for the nora menu made in python 3.7.
 
-## Before you begin
+# Installation
 
-You will need to create a private GitHub repository using the information that we provided in this README and invite as collaborators: @thomasvmm @galitisrael @RoHerrera.
-Should you have any technical questions, please contact osvaldo@cornershopapp.com
-Tittle of the project: Backend-Test-(Last Name)
+* you will need to install the python packages located in the requirements.txt
 
-## Description
+```bash
+ pip install -r requirements.txt
+```
 
-The current process consist of a person (Nora) sending a text message via Whatsapp to all the chilean employees, the message contains today's menu with the different alternatives for lunch. 
+* Once the project packages are installed, you must execute the following commands, in order to raise the models.
 
-> Hola!  
-> Dejo el menú de hoy :)
->
-> Opción 1: Pastel de choclo, Ensalada y Postre  
-> Opción 2. Arroz con nugget de pollo, Ensalada y Postre  
-> Opción 3: Arroz con hamburguesa, Ensalada y Postre  
-> Opción 4: Ensalada premium de pollo y Postre  
->
-> Tengan lindo día!
+```python
+python manage.py makemigrations
+python manage.py migrate
+```
 
-With the new system, Nora should be able to:
+* If you don't have a redis server, you should create a local one and run it, to be able to run the project, since celery needs one to be able to run as expected.
+* If you have a server, you should add the ip in the following path: `applications.library.celery.celery_.py`, in` BROKER_URL`
 
-- Create a menu for a specific date.
-- Send a Slack reminder with today's menu to all chilean employees (this process needs to be asynchronous).
+```bash
+brew update
+brew install redis
+```
 
-The employees should be able to:
+* then you must execute celery, from the local configuration found in the `applications.library.celery.celery_.py` directory with the following command.
 
-- Choose their preferred meal (until 11 AM CLT).
-- Specify customizations (e.g. no tomatoes in the salad).
+```bash
+celery worker -A applications.library.celery.celery_ --loglevel = info
+```
 
-Nora should be the only user to be able to see what the Cornershop employees have requested, and to create and edit today's menu. The employees should be able to specify what they want for lunch but they shouldn't be able to see what others have requested. 
+* `--loglevel = info` is used to obtain real-time information regarding the tasks added to celery.
 
-NOTE: The slack reminders must contain an URL to today's menu with the following pattern https://nora.cornershop.io/menu/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (an UUID), this page must not require authentication of any kind.
+* The last missing file is the `.env` a secret configuration file, the file must be created in the path: `applications.library` and inside it add the following variable:
 
-## Aspects to be evaluated
+```bash
+BOT_SLACK_TOKEN = 'xoxb-1357458481509-1357460507253-XCaxZW5SNoWo6JmfdZrU2s1F'
+```
 
-Since the system is very simple (yet powerful in terms of yumminess) we'll be evaluating, besides functionality, these aspects:
+this is the authentication token for the Slack integration.
 
-- Testing
-- Documentation
-- Software design
-- Programming style
-- Appropriate framework use
+* Having all this done, the tests should be executed, to verify that everything is perfectly configured:
 
-## Aspects to be ignored
+```python
+python manage.py test
+```
 
-- Visual design of the solution
-- Deployment of the solution
+Where the expected response is the following:
 
-## Restrictions
+```python
+Creating test database for alias 'default' ...
+System check identified no issues (0 silenced).
+...............................
+-------------------------------------------------- --------------------
+Ran 33 tests in 1.716s
 
-- The usage of Django's admin is forbidden.
+okay
+Destroying test database for alias 'default' ...
+```
+
+* now that it is verified that the installation and configuration does not present problems, it should be raised with the following command:
+
+```python
+python manage.py runserver
+```
+
+# Example of integration with slack
+
+! [Message in slack]
+(https://github.com/OscarJara/nora-menu/blob/develop/message_in_slack.png)
