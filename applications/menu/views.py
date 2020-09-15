@@ -35,6 +35,8 @@ from .forms import (
 
 import time
 
+from applications.library.celery.task import send_reminder
+
 class CreateOptionsView(CreateView): 
     '''
         View to create options that will be used when creating the menu.
@@ -140,10 +142,19 @@ class CreateMenuView(CreateView):
     
     def form_valid(self, form):
         
+        '''
+            when validating the form, the saving of the new menu is not generated immediately, this is in order to extract the uuid with which it is generated.
+            then, a url is generated to be sent by slack, through an asynchronous task
+        '''
+        
         menu = form.save(
             commit=False
         )
         time.sleep(1)
+        reminder_url = 'Ingresa para seleccionar nuestro menu del dia %s  http://localhost:8000/select-menu/?m=%s'  % (str(menu.date),str(menu.id))
+        send_reminder(
+            message=reminder_url
+        )
         #Integrations with celery, for created a reminder
         menu.save()
         
