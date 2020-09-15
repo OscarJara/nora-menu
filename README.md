@@ -69,4 +69,4 @@ python manage.py runserver
 # Example of integration with slack
 
 ! [Message in slack]
-(https://github.com/OscarJara/nora-menu/blob/develop/message_in_slack.png)
+(https://github.com/OscarJara/nora-menu/blob/master/message_in_slack.png)
