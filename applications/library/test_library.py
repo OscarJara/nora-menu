@@ -1,10 +1,6 @@
 from django.test import TestCase
 
 from .slack import Slack
-from .celery.task import send_reminder
-
-import uuid
-
 class SlackTest(TestCase):
 
     def setUp(self):
@@ -93,36 +89,5 @@ class SlackTest(TestCase):
         self.assertEqual(
             response['error'],
             'channel_not_found',
-            'unexpected error message'
-        )
-        
-    def test_send_reminder(self):
-        '''
-            test send reminder to slack.
-            
-            the message is added to an asynchronous task generated with celery, to later send the message to slack.
-            
-            the url and uuid is generated and created hard as it is just a test message.
-            
-            response code and message are evaluated.
-        '''
-        uuidTest = str(uuid.uuid4())
-        url = 'https://nora.cornershop.io/menu/%s' %(uuidTest)
-        
-        message = 'enter the following url %s' % (url)
-        
-        response = send_reminder(
-            message=message,
-            channel = '#general'
-        )
-        self.assertEqual(
-            response[0],
-            200,
-            'the returned code is not what we expected'  
-        )
-        
-        self.assertEqual(
-            response[1],
-            'ok',
             'unexpected error message'
         )

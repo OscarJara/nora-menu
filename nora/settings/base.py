@@ -32,8 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'applications.menu',
     'applications.users',
-    'rest_framework',
-    'celery'
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

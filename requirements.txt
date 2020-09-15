@@ -7,4 +7,3 @@ django-model-utils==4.0.0
 djangorestframework==3.11.1
 slackclient==2.8.2
 python-dotenv==0.14.0
-celery==4.4.7
